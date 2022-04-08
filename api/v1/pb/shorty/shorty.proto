@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package shorty;
+option go_package = "github.com/jarrpa/watermarksvc/api/v1/pb/shorty";
+
+service Shorten {
+    rpc Get (GetRequest) returns (GetReply) {}
+
+    rpc Shorten (ShortenRequest) returns (ShortenReply) {}
+}
+
+message URL {
+    string original = 1;
+    string shortname = 2;
+}
+
+message GetRequest {
+    string shortname = 1;
+}
+
+message GetReply {
+    URL url = 1;
+    string err = 2;
+}
+
+message ShortenRequest {
+   string original = 1;
+}
+
+message ShortenReply {
+    string shortname = 1;
+    string err = 2;
+}
