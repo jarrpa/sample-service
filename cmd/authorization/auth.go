@@ -9,8 +9,9 @@ import (
 	"syscall"
 
 	pb "watermarksvc/api/v1/pb/watermark"
-	"watermarksvc/pkg/watermark/endpoints"
-	"watermarksvc/pkg/watermark/transport"
+	auth "watermarksvc/pkg/authorization"
+	"watermarksvc/pkg/authorization/endpoints"
+	"watermarksvc/pkg/authorization/transport"
 
 	"github.com/go-kit/kit/log"
 	kitgrpc "github.com/go-kit/kit/transport/grpc"

@@ -9,10 +9,10 @@ import (
 	"syscall"
 
 	pb "watermarksvc/api/v1/pb/db"
-	"watermarksvc/internal/database"
+	"watermarksvc/internal/model"
+	"watermarksvc/pkg/database"
 	"watermarksvc/pkg/database/endpoints"
 	"watermarksvc/pkg/database/transport"
-	dbsvc "watermarksvc/pkg/model"
 
 	"github.com/go-kit/kit/log"
 	kitgrpc "github.com/go-kit/kit/transport/grpc"
@@ -33,7 +33,7 @@ var (
 
 func main() {
 	var (
-		service     = dbsvc.NewService()
+		service     = database.NewService()
 		eps         = endpoints.NewEndpointSet(service)
 		httpHandler = transport.NewHTTPHandler(eps)
 		grpcServer  = transport.NewGRPCServer(eps)
@@ -103,8 +103,8 @@ func init() {
 	logger = log.NewLogfmtLogger(log.NewSyncWriter(os.Stderr))
 	logger = log.With(logger, "ts", log.DefaultTimestampUTC)
 
-	db, err := database.Init(database.DefaultHost, database.DefaultPort, database.DefaultDBUser, database.DefaultDatabase,
-		database.DefaultPassword)
+	db, err := model.Init(model.DefaultHost, model.DefaultPort, model.DefaultDBUser, model.DefaultDatabase,
+		model.DefaultPassword)
 	defer func() {
 		err := db.Close()
 		if err != nil {
